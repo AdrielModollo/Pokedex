@@ -1,15 +1,15 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../../../src/infra/repositories/models/userModel');
-const registerUserSchema = require('../../../src/interface/schema/registerUserSchema');
-const loginAuthSchema = require('../../../src/interface/schema/loginAuthSchema');
-const authService = require('../../../src/domain/services/authService');
+const User = require('../../../../src/infra/repositories/models/userModel');
+const registerUserSchema = require('../../../../src/interface/schema/registerUserSchema');
+const loginAuthSchema = require('../../../../src/interface/schema/loginAuthSchema');
+const authService = require('../../../../src/domain/services/authService');
 
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
-jest.mock('../../../src/infra/repositories/models/userModel');
-jest.mock('../../../src/interface/schema/registerUserSchema');
-jest.mock('../../../src/interface/schema/loginAuthSchema');
+jest.mock('../../../../src/infra/repositories/models/userModel');
+jest.mock('../../../../src/interface/schema/registerUserSchema');
+jest.mock('../../../../src/interface/schema/loginAuthSchema');
 
 describe('Auth Service', () => {
     beforeEach(() => {
