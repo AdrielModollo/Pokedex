@@ -10,14 +10,14 @@ dotenv.config();
 exports.registerUser = async (userData) => {
     const { name, email, password } = userData;
 
-    const { error } = registerUserSchema.validate({ name, email, password });
-    if (error) {
-        throw new Error(`Invalid user data: ${error.details[0].message}`);
-    }
-
-    const existingUser = await User.findOne({ where: { email: email } });
+    const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
         throw new Error('Email already registered');
+    }
+
+    const validationResult = registerUserSchema.validate({ name, email, password });
+    if (validationResult.error) {
+        throw validationResult.error;
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -26,15 +26,17 @@ exports.registerUser = async (userData) => {
     return user;
 };
 
+
+
 exports.authenticateUser = async (userData) => {
     const { email, password } = userData;
 
-    const { error } = loginAuthSchema.validate({ email, password });
-    if (error) {
-        throw new Error(`Invalid authentication data: ${error.details[0].message}`);
+    const validationResult = loginAuthSchema.validate({ email, password });
+    if (validationResult.error) {
+        throw validationResult.error;
     }
 
-    const user = await User.findOne({ where: { email: email } });
+    const user = await User.findOne({ where: { email } }); // simplificação aqui
     if (!user) {
         throw new Error('User not found');
     }
