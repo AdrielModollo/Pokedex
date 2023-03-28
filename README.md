@@ -29,7 +29,7 @@ Essa estrutura segue a separação de responsabilidades de forma clara, onde as 
 
 1. npm install
 
-2. docker compose up --build
+2. docker compose up --build ou npm run docker
 
 3. crie um .env e configure seus acessos
 
@@ -66,6 +66,10 @@ gerado e informe em "Headers" > "Key" | Authorization > "Value" | Bearer Token.
 # Pokedex
 
 Você filtrar todos os pokemons, e utilizar filtros específicos como por nome, id da pokedex, e tipo!
+
+# Teste unitários
+
+Testes unitários mockados utilizando Jest em Node.js, utilizado a técnica de substituir as dependências do módulo por funções mockadas que simulam o comportamento das mesmas. Isso nos permite isolar as funções que queremos testar e garantir que elas funcionam corretamente, sem depender de outros módulos externos.
 
 
 
