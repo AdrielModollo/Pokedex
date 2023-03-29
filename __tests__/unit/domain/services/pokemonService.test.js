@@ -40,6 +40,23 @@ describe('PokemonService', () => {
         });
     });
 
+    describe('getByName()', () => {
+        it('should return a Pokemon object with the specified name', () => {
+            const pokemon = pokemonService.getByName('Bulbasaur');
+
+            expect(pokemon).toBeDefined();
+            expect(typeof pokemon).toBe('object');
+            expect(pokemon.PokedexNumber).toBeDefined();
+            expect(pokemon.Name.toLowerCase()).toBe('bulbasaur');
+            expect(pokemon.Type1).toBeDefined();
+        });
+
+        it('should return undefined if the specified name does not exist', () => {
+            const pokemon = pokemonService.getByName('Invalid Name');
+
+            expect(pokemon).toBeUndefined();
+        });
+    });
 
 
 });
