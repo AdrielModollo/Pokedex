@@ -21,7 +21,7 @@ class UserService {
 
         const { error: validationError } = updateUserSchema.validate({ params: { userId }, body: { name: updatedName, email: updatedEmail, password: updatedPassword } });
         if (validationError) {
-            throw new Error(validationError.details[0].message);
+            throw new Error('Invalid input');
         }
 
         const user = await User.findByPk(userId);
