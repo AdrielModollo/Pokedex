@@ -22,5 +22,24 @@ describe('PokemonService', () => {
         });
     });
 
+    describe('getById()', () => {
+        it('should return a Pokemon object with the specified PokedexNumber', () => {
+            const pokemon = pokemonService.getById(1);
+
+            expect(pokemon).toBeDefined();
+            expect(typeof pokemon).toBe('object');
+            expect(pokemon.PokedexNumber).toBe(1);
+            expect(pokemon.Name).toBeDefined();
+            expect(pokemon.Type1).toBeDefined();
+        });
+
+        it('should return undefined if the specified PokedexNumber does not exist', () => {
+            const pokemon = pokemonService.getById(10000);
+
+            expect(pokemon).toBeUndefined();
+        });
+    });
+
+
 
 });
