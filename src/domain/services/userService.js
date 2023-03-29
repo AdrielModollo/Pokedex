@@ -1,6 +1,5 @@
 const User = require('../../infra/repositories/models/userModel');
 const updateUserSchema = require('../../interface/schema/updateUserSchema');
-const getByIDUserSchema = require('../../interface/schema/getByIDUserSchema');
 const deleteByIDUserSchema = require('../../interface/schema/deleteByIDUserSchema');
 
 class UserService {
@@ -9,11 +8,6 @@ class UserService {
     }
 
     async getUserById(userId) {
-        const { error: validationError } = getByIDUserSchema.validate({ params: { userId } });
-        if (validationError) {
-            throw new Error(validationError.details[0].message);
-        }
-
         const user = await User.findByPk(userId);
         if (!user) {
             throw new Error('User not found!');
@@ -45,7 +39,7 @@ class UserService {
     async deleteUser(userId) {
         const { error: validationError } = deleteByIDUserSchema.validate({ params: { userId } });
         if (validationError) {
-            throw new Error(validationError.details[0].message);
+            throw new Error('Invalid input');
         }
 
         const user = await User.findByPk(userId);
