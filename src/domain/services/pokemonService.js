@@ -3,35 +3,48 @@ const path = require('path');
 
 class PokemonService {
     constructor() {
-        const filename = path.join(__dirname, '../../infra/repositories/models/pokemonGo.xlsx');
-        const workbook = xlsx.readFile(filename);
-        this.worksheet = workbook.Sheets['pokedex'];
+        this.cache = null;
+        this.filename = path.join(__dirname, '../../infra/repositories/models/pokemonGo.xlsx');
+        this._loadData();
+    }
+
+    _loadData() {
+        const workbook = xlsx.readFile(this.filename);
+        this.cache = xlsx.utils.sheet_to_json(workbook.Sheets['pokedex']);
     }
 
     getAll() {
-        const data = xlsx.utils.sheet_to_json(this.worksheet);
-        return data;
+        if (!this.cache) {
+            this._loadData();
+        }
+        return this.cache;
     }
 
     getById(id) {
-        const data = xlsx.utils.sheet_to_json(this.worksheet);
-        const pokemon = data.find(pokemon => pokemon.PokedexNumber === id);
+        if (!this.cache) {
+            this._loadData();
+        }
+        const pokemon = this.cache.find(pokemon => pokemon.PokedexNumber === id);
         return pokemon;
     }
 
     getByName(name) {
-        const data = xlsx.utils.sheet_to_json(this.worksheet);
-        const pokemon = data.find(pokemon => pokemon.Name.toLowerCase() === name.toLowerCase());
+        if (!this.cache) {
+            this._loadData();
+        }
+        const pokemon = this.cache.find(pokemon => pokemon.Name.toLowerCase() === name.toLowerCase());
         return pokemon;
     }
 
     getByType(type1, type2) {
+        if (!this.cache) {
+            this._loadData();
+        }
         if (!type1 && !type2) {
             throw new Error('You must inform at least one type.');
         }
 
-        const data = xlsx.utils.sheet_to_json(this.worksheet);
-        const pokemon = data.filter(pokemon => {
+        const pokemon = this.cache.filter(pokemon => {
             if (type1 && type2) {
                 return pokemon.Type1 === type1.toLowerCase() && pokemon.Type2 === type2.toLowerCase();
             } else if (type1) {
@@ -42,7 +55,7 @@ class PokemonService {
         });
 
         if (pokemon.length === 0) {
-            throw new Error('No pokemon found with the given types.');
+            return [];
         }
 
         return pokemon;
