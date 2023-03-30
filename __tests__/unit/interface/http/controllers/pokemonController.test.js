@@ -4,6 +4,10 @@ const pokemonController = require('../../../../../src/interface/http/controllers
 jest.mock('../../../../../src/domain/services/pokemonService');
 
 describe('Pokemon Controller', () => {
+    beforeEach(() => {
+        new PokemonService().cache = null;
+    });
+
     describe('getAll', () => {
         it('should return all pokemons', async () => {
             const mockPokemons = [{ id: 1, name: 'Bulbasaur' }, { id: 2, name: 'Charmander' }];
