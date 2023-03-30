@@ -51,7 +51,7 @@ Obs: Caso for utilizar com docker não é necessário iniciar a aplicação, ape
     GET: localhost:PORTA/pokemon
     GET: localhost:PORTA/pokemon/:id
     GET: localhost:PORTA/pokemon/name/:name
-    GET: localhost:PORTA/pokemon/types/?type1=&type2=
+    GET: localhost:PORTA/pokemon/types/class?type1=&type2=
 
 
 # Users
