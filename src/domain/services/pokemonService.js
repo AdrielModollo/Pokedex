@@ -36,7 +36,7 @@ class PokemonService {
 
         const pokemon = this.cache.filter(pokemon => {
             if (type1 && type2) {
-                return pokemon.Type1 === type1.toLowerCase() && pokemon.Type2 === type2.toLowerCase();
+                return pokemon.Type1 === type1.toLowerCase() || pokemon.Type2 === type2.toLowerCase();
             } else if (type1) {
                 return pokemon.Type1 === type1.toLowerCase();
             } else if (type2) {
