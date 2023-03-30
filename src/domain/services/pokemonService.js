@@ -5,41 +5,31 @@ class PokemonService {
     constructor() {
         this.cache = null;
         this.filename = path.join(__dirname, '../../infra/repositories/models/pokemonGo.xlsx');
-        this._loadData();
+        this.loadData();
     }
 
-    _loadData() {
+    loadData() {
         const workbook = xlsx.readFile(this.filename);
         this.cache = xlsx.utils.sheet_to_json(workbook.Sheets['pokedex']);
     }
 
     getAll() {
-        if (!this.cache) {
-            this._loadData();
-        }
+        this.loadData();
         return this.cache;
     }
 
     getById(id) {
-        if (!this.cache) {
-            this._loadData();
-        }
-        const pokemon = this.cache.find(pokemon => pokemon.PokedexNumber === id);
-        return pokemon;
+        this.loadData();
+        return this.cache.find(pokemon => pokemon.PokedexNumber === id);
     }
 
     getByName(name) {
-        if (!this.cache) {
-            this._loadData();
-        }
-        const pokemon = this.cache.find(pokemon => pokemon.Name.toLowerCase() === name.toLowerCase());
-        return pokemon;
+        this.loadData();
+        return this.cache.find(pokemon => pokemon.Name.toLowerCase() === name.toLowerCase());
     }
 
     getByType(type1, type2) {
-        if (!this.cache) {
-            this._loadData();
-        }
+        this.loadData();
         if (!type1 && !type2) {
             throw new Error('You must inform at least one type.');
         }
@@ -53,10 +43,6 @@ class PokemonService {
                 return pokemon.Type2 === type2.toLowerCase();
             }
         });
-
-        if (pokemon.length === 0) {
-            return [];
-        }
 
         return pokemon;
     }
