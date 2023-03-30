@@ -39,6 +39,7 @@ Obs: Caso for utilizar com docker não é necessário iniciar a aplicação, ape
 
 # Rotas configuradas na api
 
+- Para importar todas as rotas abaixo configuradas em seus Postman, basta importar o arquivo "dinheirow.postman_collection.json". Lembre-se apenas de configurar uma chave JWT no arquivo .env e alterá-la na rota de login e registro.
 ## USERS
 
     POST: localhost:PORTA/authenticate/register
@@ -52,7 +53,6 @@ Obs: Caso for utilizar com docker não é necessário iniciar a aplicação, ape
     GET: localhost:PORTA/pokemon/:id
     GET: localhost:PORTA/pokemon/name/:name
     GET: localhost:PORTA/pokemon/types/class?type1=&type2=
-
 
 # Users
 
